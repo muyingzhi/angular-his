@@ -1,8 +1,8 @@
 //----主要用来设置“前端路由”
 require.config({
-	baseUrl:"views",
+	baseUrl:"",
     paths:{
-        jquery:  'vendor/jquery-1.11.3.min',
+        jquery:  'vendor/jquery/dist/jquery.min',
         angular: 'vendor/angular/angular',
         angularRoute: 'vendor/angular-route/angular-route',
         respond: 'vendor/javascripts/respond.min',

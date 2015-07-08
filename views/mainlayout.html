@@ -1,0 +1,123 @@
+
+<!doctype html>
+<html xmlns:ng="http://angularjs.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="vendor/stylesheets/bootstrap.min.css"/>
+    <link rel="stylesheet" href="vendor/stylesheets/dropdownMenu.css"/>
+	<style>
+	.animateView.ng-leave{
+		transcation: 2s linear all;
+		-webkit-transcation: 2s linear all;
+	}
+	</style>
+	<script >
+	window.loginInfo = {
+			realName : "",
+			departName:"",
+			hospitalName:"",
+			dbVersion:"",
+			roleID:""
+	};
+	
+	</script>
+	<title>社区及乡级卫生院管理系统</title>
+</head>
+	<body  ng-controller="mlController">
+		<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="">医院综合管理信息系统</a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#first">首页 <span class="sr-only">(current)</span></a></li>
+			        <li ng-repeat="m1 in menu" class="dropdown" ng-class="{active:isActive(m1.action)}" ><!--一级菜单--->
+			          <a href="" class="dropdown-toggle" data-toggle="dropdown"  ng-click="clickMenu(m1.action)" ng-bind="m1.label">
+			          	 <span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu menu-top">
+			            <li ng-repeat="m2 in m1.children" ng-class="{'dropdown-submenu':m2.children.length>0}" ><!--二级菜单-->
+			            	<a tabindex="-1" href="" ng-click="clickMenu(m2.action)" ng-bind="m2.label"></a>
+			            	<ul ng-show="m2.children.length>0" class="dropdown-menu">
+			            		<li ng-repeat="m3 in m2.children" ><!--三级菜单-->
+			            			<a href="" ng-click="clickMenu(m3.action)" ng-bind="m3.label"></a>
+			            	</ul>
+			            </li>
+			          </ul>
+			        </li>
+			        <li class="dropdown" ng-show="moreMenu.length>0">
+			          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+			          	更多... <span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu menu-top">
+			            <li ng-repeat="m1 in moreMenu" class="dropdown-submenu">
+			            	<a tabindex="-1" href="" ng-click="clickMenu(m1.action)" ng-bind="m1.label"></a>
+			            	<ul ng-show="m1.children.length>0" class="dropdown-menu">
+			            		<li ng-repeat="m2 in m1.children" ng-class="{'dropdown-submenu':m2.children.length>0}">
+			            			<a href="" ng-click="clickMenu(m2.action)" ng-bind="m2.label"></a>
+			            			<ul ng-show="m2.children.length>0" class="dropdown-menu">
+					            		<li ng-repeat="m3 in m2.children">
+					            			<a href="" ng-click="clickMenu(m3.action)" ng-bind="m3.label"></a>
+					            	</ul>
+			            	</ul>
+			            </li>
+			          </ul>
+			        </li>
+			        <li>
+			          <a href="" ng-click="changePwd()">密码修改</a>
+			        </li>
+			        <li>
+			          <a href=" " ng-click="signOut()">退出</a>
+			        </li>
+			      </ul>
+			      <button type="button" class="btn btn-default navbar-btn" 
+			      title="{{loginInfo.realName}}-- {{loginInfo.departName}}-- {{loginInfo.hospitalName}}">关于</button>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+		<div id="doc3" class="container-fluid">
+			<div id="bd" class="row">
+				<div id="contentDiv" class="animateView" ng-view>
+				</div>
+			</div>
+			<div id="httpMsg"
+			style="background-color:rgba(255,255,255,0);
+			position:absolute;top:50px;left:0;width:100%;z-index:999;">
+				<div  style="background-color:rgba(255,255,255,0.5);margin:1px auto;width:120px;">
+					<center>
+						<img src="images/wait.gif"></img>
+						<h4>处理中...</h4><!-- 等待显示框 -->
+					</center>
+				</div>
+			</div>
+			<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+			      </div>
+			      <div class="modal-body">
+			    请求处理中  
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>	
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+	    <div class="row">
+	    	<div class="col-md-2 col-md-offset-5" style="padding-top:10px">版权：技术支持</div>
+	    </div>
+	  </div>
+	</nav>	
+	<script type="text/javascript" language="JavaScript" src="vendor/javascripts/require.js" data-main="main"></script>
+	
+	</body>
+</html>

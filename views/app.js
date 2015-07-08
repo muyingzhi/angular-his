@@ -28,7 +28,7 @@ define(['angular','jquery', 'mlController'
     app.config(['$routeProvider',function($routeProvider){
     	$routeProvider.
     		when("/first",{
-    			templateUrl:"views/main/first.html",
+    			templateUrl:"main/first.html",
     			controller:""
     	})
     	.otherwise({
