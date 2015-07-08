@@ -1,0 +1,32 @@
+<div class="panel panel-info">
+                <div class="panel-heading">系统角色</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                      <li class="list-group-item" ng-class="{active:$index==nowrow}" ng-repeat="role in listData" 
+                      		ng-click="clickRole(role,$index);">
+                        {{$index}}{{role.name}}
+                        <a href="" title="删除" ng-click="deleteRole(role)"  >
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right"></span>
+                        </a>
+                      </li>
+                      <li class="list-group-item">
+                        <form class="form-inline" ng-show="roleAdding">
+                            <div class="row form-group">
+                                <label>角色名称</label>
+                                <input type="text" class="form-control" placeholder="输入角色名称" ng-model="newRoleName">
+                                <input type="text" class="form-control" placeholder="输入角色ID" ng-model="newRoleID">
+                            </div>
+                            <div class="row">
+                                <center>
+                                <div class="btn btn-success" ng-click="saveRole()">保存</div>
+                                <div class="btn btn-default" ng-click="roleAdding = false;">取消</div>
+                                </center>
+                            </div>
+                            
+                        </form>
+                        <div class="btn btn-success" ng-show="!roleAdding" ng-click="roleAdding = true;">增加角色</div>
+                      </li>
+
+                    </ul>
+                </div>
+            </div>

@@ -1,0 +1,86 @@
+<from class="form-inline" role="form">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-5">
+	<div class="btn-group" role="group" aria-label="...">
+		<button type="button" class="btn" ng-class="{'btn-success':selectDay==1}" id="day" ng-click="changeDay(1)"> 今天 </button>
+		<button type="button" class="btn" ng-class="{'btn-success':selectDay==2}" id="all" ng-click="changeDay(2)"> 所有 </button>
+	</div>
+	<div class="form-group" >
+		<label for="name">农合号</label>
+		<input type="text" class="form-control" id="name" placeholder="请输入..." ng-model="nhcardno">
+	</div>
+	<select name="yfxz" class="form-control">
+		<option value="yf">药房</option>
+		<option value="zyf">中药房</option>
+	</select>
+</div>
+<div class="col-md-3">
+	<button type="submit" class="btn btn-default">查询</button>
+	<INPUT name="presc_no" type="hidden"/>
+	<button type="submit" class="btn btn-default" ng-click="dispensing()">发药</button>
+</div>
+</div>
+</div>
+</from>
+<hr>
+<from>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<table class="table">
+			   <thead>
+				  <tr>
+					<th>序号</th>
+					<th>类型</th>
+					<th>姓名</th>
+					<th>流水号</th>
+				  </tr>
+				</thead>
+				<tbody id="master">
+				  <tr ng-repeat="recipe in recipeList" ng-click="findDetail(recipe)">
+					<td>{{$index+1}}</td>
+					<td><span ng-show="recipe.inpOrOUtp==1">门诊</span>
+					<span ng-show="recipe.inpOrOUtp == 2">住院</span></td>
+					<td>{{recipe.patient.name}}</td>
+					<td>{{recipe.prescNo}}</td>
+				  </tr>
+				</tbody>
+			</table>
+			<hr noshade="noshade"/>
+		</div>
+		<div class="col-md-1" style="border-left:1px solid #BEBEBE;width:1px;height:500px;"></div>
+		<div class="col-md-8">
+			<table class="table table-striped">
+			   <thead>
+				  <tr>
+					<th>序号</th>
+					<th>药品名称</th>
+					<th>包装规格</th>
+					<th>零售单价</th>
+					<th>销售单位</th>
+					<th>总量</th>
+					<th>金额(元)</th>
+				  </tr>
+				</thead>
+				<tbody id="item">
+				  <tr ng-repeat="recipeItem in recipeItemList">
+					<td>{{$index+1}}</td>
+					<td>{{recipeItem.name}}</td>
+					<td>{{recipeItem.specs}}</td>
+					<td>{{recipeItem.unitPrice|number:2}}</td>
+					<td>{{recipeItem.unitName}}</td>
+					<td>{{recipeItem.totalCount}}</td>
+					<td ng-model="total">{{recipeItem.totalPrice|number:2}}</td>
+				  </tr>
+				</tbody>
+			</table>
+			<hr noshade="noshade"/>
+			<div class="col-md-9">合计:</div>
+			<div class="col-md-1"><td>{{totalCountall}}</td></div>
+			<div class="col-md-1"><td>{{totalPriceall}}</td></div>
+		</div>
+	</div>
+</div>
+</from>

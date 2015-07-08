@@ -1,0 +1,155 @@
+<div class="container-fluid">
+	<register-patient  patient="patient"  on-selected="getOnePatient(patient)"></register-patient>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-success">
+			   <div class="panel-heading">
+					  <div class="panel-title"><center>门诊收费项目录入</center></div>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>名称</th>
+							<th>规格</th>
+							<th>单位</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>金额</th>
+							<th>执行科室</th>
+							<th>用法</th>
+							<th>用量</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "one in items track by $index">
+							<td>{{$index+1}}</td>
+							<td>{{one.item_name}}</td>
+							<td>{{one.spec}}</td>
+							<td>盒</td>
+							<td>{{one.price}}</td>
+							<td>{{one.sl}}</td>
+							<td>{{one.charge|number:2}}</td>
+							<td>药房</td>
+							<td>口服</td>
+							<td>一天两次</td>
+							<td>
+								<button class="btn" ng-click="deleteItem($index)">
+								<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>删除
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="10">
+							<form class="form-inline">
+								<pinyin-collapse selected-item="inputItem" title="drugPinyin.title" datas-url="drugPinyin.dataurl" cols="drugPinyin.cols"></pinyin-collapse>
+								<input type="text" class="form-control "  ng-model="adding.item_name" value="新增药品" disabled  placeholder="名称.">
+								<input type="text" class="form-control " ng-model="adding.spec" size="2"  disabled  placeholder="规格">
+								<input type="text" class="form-control " ng-model="adding.unit" size="1"  disabled  placeholder="单位">
+								<input type="text" class="form-control " ng-model="adding.price" size="2" disabled  placeholder="单价">
+								<input type="text" class="form-control " ng-model="adding.sl" size="2" ng-change="adding.charge = adding.sl*adding.price" placeholder="数量">
+								
+								<input type="text" class="form-control " ng-model="adding.charge" size="2" disabled placeholder="金额">
+								<input type="text" class="form-control " ng-model="adding.performDept"  disabled  placeholder="执行科室">
+								<input type="text" class="form-control " ng-model="adding.performDept" size="2"  disabled  placeholder="用药途径">
+								<input type="text" class="form-control " ng-model="adding.performDept" size="2"  disabled  placeholder="用法">
+								<input type="text" class="form-control " ng-model="adding.performDept" size="2"  disabled  placeholder="用量">
+							</form>
+							</td>
+							<td>
+								<button class="btn btn-success" ng-click="addItem(adding)">
+									<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>加入
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!--panel end-->
+		</div><!--col end-->
+	</div><!--row end-->
+	<div class="row">
+	
+	<div class="col-md-6">
+		<div class="panel panel-default" style="height:280px;display:block;">
+			<div class="panel-heading" id="ybnh">
+				医保/农合
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3">
+						<p>进入统筹:</p>
+						<p>累计补偿次数:</p>
+						<p>个人累积补偿次数:</p>
+					</div>
+					<div class="col-md-3">
+						<p>统筹支付:</p>
+						<p>统筹补偿金额:</p>
+						<p>个人累积补偿金额:</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="btn btn-success">试算</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="panel panel-default" style="height:280px;">
+			<div class="panel-heading">
+				<div class="panel-title">合计金额</div>
+			</div>
+			<div class="panel-body">
+				<h3>{{totalCost|number:2}}元</h3>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="panel panel-default" style="height:280px;">
+			<div class="panel-heading">
+				<div class="panel-title">收款<lable style="float:right">（收款员：{{loginInfo.realName}}）</label></div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12">发票号:<label>{{invoiceNO}}</label></div>
+				</div>
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="ysje" class="col-xs-2 control-label">应收:</label>
+						<div class="col-xs-6">
+							<div type="text" class="form-control"  style="background-color:green;color:white" disabled>
+							{{totalCharge|number:2}}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ssje" class="col-xs-2 control-label">实收:</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" id="ssje" value="0">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="zlje" class="col-xs-2 control-label">找零:</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" id="zlje" value="500.00" style="background-color:black;color:white" disabled>
+						</div>
+					</div>
+				</form>
+				
+				<div class="row">
+					<div class="col-xs-offset-3 col-xs-6">
+						<button type="button" class="btn btn-primary "> 确认 </button>
+						<button type="button" class="btn btn-default"> 取消 </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">...</div>
+	</div>
+	
+</div>

@@ -1,0 +1,27 @@
+<span >
+	<input data-toggle="collapse"  class="form-control " ng-model="pinyin"  placeholder="输入拼音字头..."
+	/>
+	<div class="collapse" id="collapseExample" 
+	style="position: absolute ;left:120px;top:120px;z-index:999999;border:o solid blue;">
+		<div class="panel panel-info">
+			<div class="panel-heading"><center>{{title}}</center></div>
+	
+				<table class="table">
+					<thead>
+						<th ng-repeat = "h in cols|filter:{show:true}">{{h.title}}</th>
+					</thead>
+					<tbody>
+					<tr ng-repeat="one in list |filter:pinyin" ng-class="{true:'active',false:'inactive'}[$index == row]" ng-click="clickRow($index)">
+						<td ng-repeat = "h in cols|filter:{show:true}">{{one[h.id]}}</td>
+						<td ng-click="clickItem(one)"><a href=''>选中</a></td>
+					</tr>
+					</tbody>
+				</table>
+				<burk-pagination ng-model="pageInfo"  on-retrieve="retrieve(pageInfo.curPage)"></burk-pagination>
+	
+			<div class="panel-footer">
+				<span class="btn btn-default" ng-click="doCancle()">取消</span>
+			</div>
+		</div>
+	</div>
+</span>

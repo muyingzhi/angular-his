@@ -1,0 +1,66 @@
+
+    <div class="row">
+        <div class="col-md-2">
+            <div roles-manage roles-list="rolelist" one-role="oneRole" on-change-role="clickRole()"></div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">“{{currentRole.name}}”角色的功能分组
+                </div>
+                <div class="panel-body">
+					<ol class="breadcrumb">
+						<li ng-click="tmpGroupList = cloneArray(groupList);breadGroup = {};"><a>功能分组</a></li>
+						<li ng-click="clickGroup(breadGroup);"><a>{{breadGroup.label}}</a></li>
+					</ol>
+					<ul class="list-group">
+                    	<li class="list-group-item" ng-repeat="group in tmpGroupList" ng-click="clickGroup(group);">
+                    	<a>{{group.label}}:{{group.id}}:{{group.action}}</a>
+                    	<a href="" title="删除" ng-click="">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right"></span>
+                        </a>
+                    	</li>
+                    </ul>
+	                
+                   
+                    <div class="panel panel-info"  ng-show="groupAdding">
+                        <div class="panel-heading">新增分组</div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                            <div class="row form-group">
+                                <label>分组名称</label><input type="text" class="form-control" placeholder="输入分组名称">
+                            </div>
+                            <div class="row">
+                                <center>
+                                <div class="btn btn-success">保存</div>
+                                <div class="btn btn-default" ng-click="groupAdding = false;">取消</div>
+                                </center>
+                            </div>
+                            
+                        </form>
+                        </div>
+                    </div>
+                    <div class="btn btn-success" ng-show="!groupAdding" ng-click="groupAdding = true;">增加分组</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">单元</div>
+                <div class="panel-body">
+                	<ol class="breadcrumb">
+						<li ng-click="tmpMenuList = cloneArray(firstMenuList);breadMenu = {};"><a>所有一级菜单</a></li>
+						<li ng-click="clickMenu(breadMenu);"><a>{{breadMenu.label}}</a></li>
+					</ol>
+					<ul class="list-group">
+                    	<li class="list-group-item" ng-repeat="menu in tmpMenuList" ng-click="clickMenu(menu);" title="URL:{{menu.action}}">
+	                    	<a>[{{$index}}]{{menu.label}}:{{menu.id}}:{{menu.action}}</a>
+	                    	<span class="badge" >
+							{{menu.children.length}}
+							</span>
+                    	</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>

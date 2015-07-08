@@ -1,0 +1,98 @@
+
+	<div class="panel">
+		<div class="panel-body">
+			<ol class="breadcrumb">
+			  <li ng-repeat="gov in govRoutes" ng-click="clickGov(gov)"><a>{{gov.name}}</a></li>
+			</ol>
+			<div class="row">
+				<div class="col-md-3">
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat = "gov in govChildren" ng-click="editGov(gov)">
+							<a>{{gov.name}}</a>
+							<span class="badge" >
+							{{gov.arrGov.length}}
+							</span>
+							<button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="clickGov(gov)" ng-show="gov.arrGov.length>0">
+							  <span class="glyphicon glyphicon-star">看下级</span>
+							</button>
+							
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">机构扩展信息编辑</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-6">
+								<TABLE class="table table-bordered ">
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">机构编码</TD>
+										<TD ><input type="text" ng-model="one.hosid" disabled></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">机构名称</TD>
+										<TD ><input type="text" ng-model="one.hosname" disabled></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">机构代码</TD>
+										<TD ><input type="text" ng-model="one.hoscode"></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">父级机构编码</TD>
+										<TD ><input type="text" ng-model="one.hosparent"></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">机构配送编码</TD>
+										<TD ><input type="text" ng-model="one.hosdelivery"></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">机构医保编码</TD>
+										<TD ><input type="text" ng-model="one.hosinsurance"></TD>
+									</TR>
+								</TABLE>
+								</div>
+								<div class="col-xs-6">
+								<table class="table table-bordered ">
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">是否启用本系统</TD>
+										<TD ><radio-yes-no ng-model="one.using_system"></radio-yes-no></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">是否存在挂号业务</TD>
+										<TD> <radio-yes-no ng-model="one.register"></radio-yes-no></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">药房收费是否合一</TD>
+										<TD ><radio-yes-no ng-model="one.merge_charge_drug"></radio-yes-no></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">是否使用条码</TD>
+										<TD ><radio-yes-no ng-model="one.use_barcode"></radio-yes-no>
+											</TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">是否管理库存</TD>
+										<TD ><radio-yes-no ng-model="one.is_stock_manage"></radio-yes-no></TD>
+									</TR>
+									<TR>
+										<TD width="50%" class="tab-leftline" bgcolor="#FDFAE3">是否入库单录入可修改价格</TD>
+										<TD ><radio-yes-no ng-model="one.is_update_price"></radio-yes-no></TD>
+									</TR>
+								</table>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="btn btn-success" ng-click="commitGov()">保存</div>
+							<div class="btn btn-default" >人员维护</div>
+							<div class="btn btn-default" ng-click="editDept()">科室维护</div>
+							<div class="btn btn-default" ng-click="setDept2DrugStore()">设置药房科室</div>
+							<div class="btn btn-default" ng-click="setSjptBase()">基本目录选择</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Modal -->

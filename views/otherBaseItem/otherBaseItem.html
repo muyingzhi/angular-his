@@ -1,0 +1,117 @@
+<div class="row">
+	<div class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">分类</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="base in baseList" ng-click="clickBaseItem(base)">{{base.name}}
+					<a ng-click="deleteBase(base)">
+						<span class="glyphicon glyphicon-remove" style="float:right;" title="删除"></span>
+					</a>
+					</li>
+					<li class="list-group-item success">
+						<form class="form-inline" ng-show="adding">
+							<div class="row">
+								<input class="form-control col-xs-6" placeholder="编号" ng-model="base.dw_dirclass_id">
+								<input class="form-control col-xs-6" placeholder="名称" ng-model="base.dw_baseDirectory_name">
+							</div>
+							<center>
+								<span class="btn btn-success" ng-click="saveBase()">保存</span>
+								<span class="btn btn-default" ng-click="base.dw_baseDirectory_name='';adding = !adding">取消</span>
+							</center>
+							</form>
+							<center ng-show="!adding"><div class="btn btn-success" ng-click="adding=true;base={}">增加</div></center>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong>{{base.name}}</strong>详细</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs">
+					<li ng-class="{'active':currentType=='drug'}" role="presentation"><a ng-click="changeList('drug');">药品</a></li>
+					<li ng-class="{'active':currentType=='nodrug'}"role="presentation"><a ng-click="changeList('nodrug');">价表项目</a></li>
+					<li ><div class="btn btn-success" ng-click="newAdd(currentType,base)">新增</div></li>
+				</ul>
+				
+				<div class="panel panel-info" ng-show="drugAdding || nodrugAdding">
+					<div class="panel-heading">新增</div>
+					<div class="panel-body">
+						<form class="form-inline" ng-show="drugAdding">
+								<input type="text" class="form-control" ng-model="drugNew.drug_type" placeholder="类型">
+								<input type="text" class="form-control" ng-model="drugNew.drug_name" placeholder="名称">
+								<input type="text" class="form-control" ng-model="drugNew.drug_spec" placeholder="规格">
+								<input type="text" class="form-control" ng-model="drugNew.dosage_unit" placeholder="单位">
+								<input type="text" class="form-control" ng-model="drugNew.price" placeholder="价格">
+								<input type="text" class="form-control" ng-model="drugNew.using_flag" placeholder="备注">
+								<input type="text" class="form-control" ng-model="drugNew.package_unit" placeholder="包装单位">
+								<input type="text" class="form-control" ng-model="drugNew.sales_unit" placeholder="销售单位">
+								<input type="text" class="form-control" ng-model="drugNew.sales_relation" placeholder="换算关系">
+								<input type="text" class="form-control" ng-model="drugNew.control_flag" placeholder="管制属性">
+							<hr>
+								<div class="btn btn-success" ng-click="saveNewDrug();">保存</div><div class="btn btn-default" ng-click="drugAdding=false">取消</div>
+							
+						</form>
+						
+						<form class="form-inline" ng-show="nodrugAdding">
+							<input type="text" class="form-control" ng-model="nodrugNew.itemName" placeholder="名称">
+							<input type="text" class="form-control" ng-model="nodrugNew.itemSpec" placeholder="规格">
+							<input type="text" class="form-control" ng-model="nodrugNew.units" placeholder="单位">
+							<input type="text" class="form-control" ng-model="nodrugNew.price" placeholder="价格">
+							<input type="text" class="form-control" ng-model="nodrugNew.using_flag" placeholder="备注">
+							<hr>
+							<div class="btn btn-success">保存</div><div class="btn btn-default" ng-click="drugAdding=false">取消</div>
+						</form>
+					</div>
+				</div>
+				<div id="baseList">
+					<table class="table" ng-show="list['drug'] && list['drug'].length>0">
+						<tr>
+							<td>类别</td>
+							<td>药品名称</td>
+							<td>规格</td>
+							<td>单位</td>
+							<td>价格</td>
+							<td>备注</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="drug in list['drug']">
+							<td>{{drug.drug_type}}</td>
+							<td>{{drug.drug_name}}</td>
+							<td>{{drug.drug_spec}}</td>
+							<td>{{drug.dosage_unit}}</td>
+							<td>{{drug.price}}</td>
+							<td>{{drug.using_flag}}</td>
+							<td><div class="btn btn-default">删除</div></td>
+							<td><div class="btn btn-default" ng-click="editDrug(drug)">编辑</div></td>
+						</tr>
+					</table>
+					<table class="table" ng-show="list['nodrug'] && list['nodrug'].length>0">
+						<tr>
+							<td>价表名称</td>
+							<td>规格</td>
+							<td>单位</td>
+							<td>价格</td>
+							<td>备注</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="one in list['nodrug']">
+							<td>{{one.itemName}}</td>
+							<td>{{one.itemSpec}}</td>
+							<td>{{one.units}}</td>
+							<td>{{one.price}}</td>
+							<td>{{one.usingFlag}}</td>
+							<td><div class="btn btn-default">删除</div></td>
+						</tr>
+					</table>												
+				</div>
+				<center>
+					<burk-pagination ng-model="pageInfo"  on-retrieve="retrieve(pageInfo.curPage)"></burk-pagination>
+				</center>
+			</div>
+		</div>
+		<div id="ResultDiv1"></div>
+	</div>
+</div>

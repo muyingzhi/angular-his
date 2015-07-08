@@ -1,0 +1,99 @@
+<div class="row">
+<div class="col-md-2">
+	<button type="button" class="btn btn-primary btn-block" ng-click="openRegister()">
+	<span class="glyphicon glyphicon-user" aria-hidden="true"></span> 选择 </button>
+</div>
+<div class="col-md-8">
+	<h4 ng-show="patient.name">
+		  姓名：<label>{{patient.name}}</label>性别：<label>{{patient.sex}}</label>年龄：<label>{{patient.age}}</label>
+	</h4>
+</div>
+<div class="modal fade " tabindex="-1" role="dialog" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+		 <div class="modal-header">
+			就诊病人
+		 </div>
+		 <div class="modal-body">
+            <div class="col-md-12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>性别</th>
+							<th>就诊日期</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="one in patientsList">
+							<td>{{one.name}}</td>
+							<td>{{one.sex}}</td>
+							<td>{{one.regDate}}</td>
+							<td><span class="glyphicon glyphicon-ok-circle" ng-click="doThisPatient(one)"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<form class="form-horizontal" role="form">
+			<legend>登记详情</legend>
+			<fieldset>
+			<div class="form-group">
+				<label class="col-sm-1 control-label" for="name">姓名:</label>
+				<div class="col-sm-2">
+					<input class="form-control" id="ds_host" type="text" ng-model="patient.name"/>
+				</div>
+				<label class="col-sm-2 control-label" for="ds_name">电话:</label>
+				<div class="col-sm-2">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.phone"/>
+				</div>
+				<label class="col-sm-2 control-label" for="name">开单医生:</label>
+				<div class="col-sm-2">
+					<input class="form-control" id="ds_host" type="text" ng-model="patient.doctor"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label" for="ds_name">性别:</label>
+				<div class="col-sm-1">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.sex"/>
+				</div>
+				<label class="col-sm-2 control-label" for="name">身份证:</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="ds_host" type="text" ng-model="patient.CARDNO"/>
+				</div>
+				<label class="col-sm-2 control-label" for="ds_name">就诊科室:</label>
+				<div class="col-sm-2">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.dept"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label" for="ds_name">年龄:</label>
+				<div class="col-sm-1">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.age"/>
+				</div>
+				<label class="col-sm-2 control-label" for="ds_name">出生日期:</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.birthday"/>
+				</div>
+				<label class="col-sm-2 control-label" for="ds_name">登记日期:</label>
+				<div class="col-sm-2">
+					<input class="form-control" id="ds_name" type="text" ng-model="patient.regDate"/>
+				</div>
+			</div>
+			</fieldset>
+			</from>
+         </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-primary" ng_click="patient = {};">
+				新建
+			</button>
+			<button type="button" class="btn btn-primary" ng-click="doThisPatient(patient)">
+				确认
+			</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="doThisPatient(patient)">
+				取消
+			</button>
+         </div>
+    </div>
+  </div>
+</div>
+</div>

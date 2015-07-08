@@ -1,0 +1,47 @@
+<div  ng-show="ngModel.countPageNumber>0">
+	<nav>
+		<ul class="pagination" >
+			<li>
+				<a href="" title="前一页" ng-click="pageGroupChange(-1);"><span aria-hidden="true">&laquo;</span></a>
+			</li>
+			<li  ng-class="{'active':1==ngModel.curPage}">
+				<a href=""  ng-click="ngModel.curPage=1; pageChange(1);">1</a>
+			</li>
+			<!-- 
+			<li ng-class="disabled">
+				<a>-{{ngModel.curPage}}-</a>
+			</li>
+			 -->
+			<li ng-class="disabled" ng-show="ngModel.pageItems.length>0 && ngModel.pageItems[0].num>2">
+				<a href="">...</a>
+			</li>
+			<li ng-class="{'active':page.text==ngModel.curPage}" ng-repeat="page in ngModel.pageItems">
+				<a href="" ng-click="ngModel.curPage=page.text; pageChange( ngModel.curPage);">{{page.text}}
+				</a>
+			</li>
+			<li ng-class="disabled" ng-show="ngModel.pageItems.length>0 && ngModel.pageItems[ngModel.pageItems.length - 1 ].num+1<ngModel.countPageNumber">
+				<a href="">...</a>
+			</li>
+			
+			<li ng-class="{'active':ngModel.countPageNumber==ngModel.curPage}" ng-show="ngModel.countPageNumber>1">
+				<a href="" ng-click="ngModel.curPage=ngModel.countPageNumber; pageChange( ngModel.curPage);">{{ngModel.countPageNumber}}
+				</a>
+			</li>
+			<li >
+				<a href="" title="下一页" ng-click="pageGroupChange(1);"><span aria-hidden="true">&raquo;</span></a>
+			</li>
+		</ul>
+
+		<ul class="pagination">
+			<li ng-class="{'active':ngModel.pageItemNumber==10}">
+				<a href="" ng-click="ngModel.pageItemNumber=10;pageChange(1);">10</a></li>
+			<li ng-class="{'active':ngModel.pageItemNumber==20}">
+				<a href="" ng-click="ngModel.pageItemNumber=20;pageChange(1);">20</a></li>
+			<li ng-class="{'active': ngModel.pageItemNumber==50}">
+				<a href="" ng-click="ngModel.pageItemNumber=50;pageChange(1);">50</a></li>
+			<li>
+				<a>共{{ngModel.sumItemNumber}}行</a>
+			</li>
+		</ul>
+	</nav>
+</div>
