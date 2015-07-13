@@ -10,47 +10,44 @@ define(['controller/controllers','jquery','services/HealthDBService'
             $scope.isActive = function(route){
             	return route === $location.path();
             };
-            $http({
-            	url:"taskInfo.do",
-            	method:"get"
-            }).success(function(xmlstr){
-            	var xmldoc = $.parseXML(xmlstr);
-            	var $xml = $(xmldoc);
-            	var taskModel = $xml.find("TaskModel");
-            	var allTask = readTask(taskModel);//----树形结构的菜单项
-            	//-----为了顶端长度的控制，做如下处理；
-            	for(var i=0;i<allTask.length;i++){
-            		if(i<6){
-            			$scope.menu.push(allTask[i]);
-            		}else{
-            			$scope.moreMenu.push(allTask[i]);
-            		}
-            	}
-            	function readTask(taskModel){
-            		var result = [];
-	            	var taskGroup = taskModel.children();
-	            	if(taskGroup){
-	            		for(var i=0;i<taskGroup.length;i++){
-	            			var t = taskGroup[i];
-	            			var obj = {};
-	            			//------设置id，label，action
-	            			for(var ai = 0; ai<t.attributes.length; ai++ ){
-	            				obj[t.attributes[ai].nodeName]=t.attributes[ai].nodeValue;
-	            			}
-	            			if(t.nodeName=="TaskGroup"){
-	            				//递归
-	            				obj.children = readTask($(t));
-	            			}else if(t.nodeName=="TaskInfo"){
-	            				//---叶子
-	            			}
-	            			result.push(obj);
-	            		}
-	            	}
-	            	return result;
-            	}
-            	return;
-            	}
-            );
+            //----读取菜单数据
+            $scope.menu = [
+                           {id:"m01",label:"门诊",children:[
+                                                     {id:"m0101",label:"挂号",action:""}
+                                                     ,{id:"m0102",label:"诊疗",action:"/his/clinicCaseHistory.do"}
+                                                     ,{id:"m0101",label:"收费",action:"#outpcharge"}
+                                                     ]},
+                           {id:"m02",label:"住院",children:[
+                                                     {id:"m0201",label:"入院登记",action:""}
+                                                     ,{id:"m0202",label:"护士站",action:""}
+                                                     ,{id:"m0203",label:"医生站",action:""}
+                                                     ,{id:"m0204",label:"结算管理",action:""}
+                                                          ]},
+                           {id:"m03",label:"药房",children:[
+                                                     {id:"m0301",label:"处方发药",action:"#dispensing"}
+                                                     ,{id:"m0302",label:"摆药",action:""}
+                                                     ,{id:"m0303",label:"库存管理",action:""}
+                                                     ,{id:"m0303",label:"入库",action:""}
+                                                     ,{id:"m0303",label:"出库",action:""}
+                                                     ,{id:"m0303",label:"调价",action:""}
+                                                          ]},
+                          {id:"m04",label:"病历管理",children:[
+                                                         {id:"m0301",label:"整理",action:"#dispensing"}
+                                                         ,{id:"m0302",label:"模板",action:""}
+                                                              ]}
+                           ];
+            $scope.moreMenu = [
+                        {id:"m99",label:"系统管理",children:[
+                                         {id:"m9901",label:"机构配置",action:"#govEdit"}
+                                         ,{id:"m9902",label:"角色和功能分组",action:"#roleAndGroup"}                 
+                                             ]}
+                        ];
+//            HealthDBService.getTaskInfo(function(menu, moreMenu){
+//            	$scope.menu = menu;
+//            	$scope.moreMenu = moreMenu;
+//            	console.log(menu);
+//            	console.log(moreMenu);
+//            });
             $scope.clickMenu=function(menuhref){
             	if(menuhref==undefined || menuhref==""){return;}
         		if(menuhref.indexOf("#")>=0){//#开头的是agularjs，直接在url后加上，将会执行mainjs的路由

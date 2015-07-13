@@ -51,60 +51,53 @@ define(['jquery','services/services'],function($,services){
 					$("#myModal").modal();
 				}
 			}
-		}).error(function(data){
-			alert("HealthDBService Error:");
+		}).error(function(response,status,headers,datas){
+			alert("HealthDBService 处理请求失败:("+status+")"+datas.url);
 		});
 	};
 	//--------------------------取权限功能列表
-	HealthDB.prototype.getTaskInfoByRoleID = function(roleid,callback){
-		var param = {};
-
-		if(!callback){
-			alert("取权限功能列表处理中，没有回调函数，请修改。")
-			return;
-		}
-		if(roleid){
-			param = {roleid: roleid};
-		}else{
-			param = null;
-		}
-		httpPostForm("taskInfo.do", param ,function(xmlstr){
-	    		var parser = new DOMParser();
-	    		var xmldom = parser.parseFromString(xmlstr,"text/xml");
-	    		var taskModel = xmldom.documentElement;
-	    		var children = taskModel.children;
-	    		var resultMenu = [];
-	    		for(var i = 0;i<children.length;i++){
-	    			//---一级
-	    			var obj = children[i];
-	    			var m1 = {label:obj.attributes.label.value,
-	    					action:obj.attributes.action?obj.attributes.action.value:"",
-	    					children:[]};
-	    			if(obj.children.length>0){
-	        			for(var j=0;j<obj.children.length;j++){
-	        				//----二级
-	        				var obj2 = obj.children[j];
-	        				var m2 = {label:obj2.attributes.label.value,
-	            					action:obj2.attributes.action?obj2.attributes.action.value:"",
-	                    					children:[]}
-	        				if(obj2.children.length>0){
-	        					for(var k=0;k<obj2.children.length;k++){
-	        						//----三级
-	        						var obj3 = obj2.children[k];
-	        						var m3 = {label:obj3.attributes.label.value,
-		                					action:obj3.attributes.action?obj3.attributes.action.value:"",
-		                        					children:[]};
-	        						m2.children.push(m3);
-	        					}
-	        				}
-	        				m1.children.push(m2);
-	        			}
-	    			}
-	    			resultMenu.push(m1);
-	            }
-	    		callback(resultMenu);
+	HealthDB.prototype.getTaskInfo= function(callback){
+		var menu=[],moreMenu=[];
+		http({
+	    	url:"taskInfo.do",
+	    	method:"get"
+	    }).success(function(xmlstr){
+	    	var xmldoc = $.parseXML(xmlstr);
+	    	var $xml = $(xmldoc);
+	    	var taskModel = $xml.find("TaskModel");
+	    	var allTask = readTask(taskModel);//----树形结构的菜单项
+	    	//-----为了顶端长度的控制，做如下处理；
+	    	for(var i=0;i<allTask.length;i++){
+	    		if(i<6){
+	    			menu.push(allTask[i]);
+	    		}else{
+	    			moreMenu.push(allTask[i]);
+	    		}
 	    	}
-	    );
+	    	callback(menu, moreMenu);
+	    });
+    	function readTask(taskModel){
+    		var result = [];
+        	var taskGroup = taskModel.children();
+        	if(taskGroup){
+        		for(var i=0;i<taskGroup.length;i++){
+        			var t = taskGroup[i];
+        			var obj = {};
+        			//------设置id，label，action
+        			for(var ai = 0; ai<t.attributes.length; ai++ ){
+        				obj[t.attributes[ai].nodeName]=t.attributes[ai].nodeValue;
+        			}
+        			if(t.nodeName=="TaskGroup"){
+        				//递归
+        				obj.children = readTask($(t));
+        			}else if(t.nodeName=="TaskInfo"){
+        				//---叶子
+        			}
+        			result.push(obj);
+        		}
+        	}
+        	return result;
+    	}
 	};
 	
 	services.service("HealthDBService",['$http',HealthDB]);
