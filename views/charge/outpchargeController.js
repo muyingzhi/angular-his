@@ -3,7 +3,7 @@ define(['angular','jquery','services/HealthDBService','directives/registerPatien
     angular.module('app.outpcharge',['ngRoute'])
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider.when("/outpcharge",{
-        	templateUrl:"views/charge/outpcharge.html",
+        	templateUrl:"charge/outpcharge.html",
         	controller:"outpchargeController"
         });
     }])

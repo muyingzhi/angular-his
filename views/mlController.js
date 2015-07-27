@@ -4,6 +4,7 @@ define(['controller/controllers','jquery','services/HealthDBService'
     controllers.controller("mlController", ['$rootScope','$scope','$routeParams','$http','$location','HealthDBService',
         function($rootScope,$scope,$routeParams,$http,$location,HealthDBService){
             document.title = $scope.title="工作台";
+            $scope.DEBUG = true;
             $scope.loginInfo = window.loginInfo; 
             $scope.menu = [];
             $scope.moreMenu = [];
@@ -13,7 +14,7 @@ define(['controller/controllers','jquery','services/HealthDBService'
             //----读取菜单数据
             $scope.menu = [
                            {id:"m01",label:"门诊",children:[
-                                                     {id:"m0101",label:"挂号",action:""}
+                                                     {id:"m0101",label:"挂号",action:"#register"}
                                                      ,{id:"m0102",label:"诊疗",action:"/his/clinicCaseHistory.do"}
                                                      ,{id:"m0101",label:"收费",action:"#outpcharge"}
                                                      ]},

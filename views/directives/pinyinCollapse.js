@@ -17,24 +17,26 @@ define(['directives/directives','services/HealthDBService'],function(directives)
                 	title:"=",
                 	datasUrl:"="
                 },
-                templateUrl:"views/directives/templates/pinyinCollapse.html",
+                templateUrl:"directives/templates/pinyinCollapse.html",
 	            replace:true,
                 link : function(scope,ele,attrs,c){
                 	scope.row=0;
-//                	scope.title = "价表项目";
-//                	scope.list=[ 
-//                	             {pinyin:"XCG",item_name:"血常规", price:22.1 ,spec:'/', yc2:222},
-//                	             {pinyin:"NGG",item_name:"尿常规", price:22.1 ,spec:'/', yc2:222},
-//                	             {pinyin:"SHQX",item_name:"生化全项", price:22.1 ,spec:'/', yc2:222},
-//                	             {pinyin:"XZ",item_name:"血脂", price:22.1 ,spec:'/', yc2:222},
-//                	             {pinyin:"XT",item_name:"血糖", price:22.1 ,spec:'/', yc2:222}];
-//                	scope.cols = [
-//                	              {title:"拼音",id:"pinyin",show:true},
-//                	              {title:"名称",id:"item_name",show:true},
-//                	              {title:"单价",id:"price",show:true},
-//                	              {title:"规格",id:"spec",show:false},
-//                	              {title:"隐藏2",id:"yc2",show:false}
-//                	              ]
+                    if(scope.$parent.$parent.DEBUG){
+                       	scope.title = "价表项目";
+                       	scope.list=[ 
+                       	             {pinyin:"XCG",item_name:"血常规", price:22.1 ,spec:'/', yc2:222},
+                       	             {pinyin:"NGG",item_name:"尿常规", price:22.1 ,spec:'/', yc2:222},
+                       	             {pinyin:"SHQX",item_name:"生化全项", price:22.1 ,spec:'/', yc2:222},
+                       	             {pinyin:"XZ",item_name:"血脂", price:22.1 ,spec:'/', yc2:222},
+                       	             {pinyin:"XT",item_name:"血糖", price:22.1 ,spec:'/', yc2:222}];
+                       	scope.cols = [
+                       	              {title:"拼音",id:"pinyin",show:true},
+                       	              {title:"名称",id:"item_name",show:true},
+                       	              {title:"单价",id:"price",show:true},
+                       	              {title:"规格",id:"spec",show:false},
+                       	              {title:"隐藏2",id:"yc2",show:false}
+                       	              ]
+                    }
                 	scope.pageInfo = {curPage:1, //当前页
     						countPageNumber:1, //总页数,
     						pageItemNumber:10, //每页记录数
@@ -52,11 +54,15 @@ define(['directives/directives','services/HealthDBService'],function(directives)
                     	});
                     }
                     //----页码变化，更新请求
-                    scope.$watch("pageInfo.curPage",function(newNum){
-                 	   if(newNum>0){
-                 		   httpDataRequest(newNum);
-                 	   }
-                    });
+                    if(!(scope.$parent 
+                        && scope.$parent.$parent 
+                        && scope.$parent.$parent.DEBUG)){
+                        scope.$watch("pageInfo.curPage",function(newNum){
+                     	   if(newNum>0){
+                     		   httpDataRequest(newNum);
+                     	   }
+                        });
+                    }
                 	//----输入框获得焦点时，显示数据列表区域
                 	ele.find("input").bind("focusin",function(){
                 		setCollapse();

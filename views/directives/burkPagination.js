@@ -17,7 +17,7 @@ define(['directives/directives'],function(directives){
                 scope :{
                     ngModel:"="
                 },
-                templateUrl:"views/directives/templates/burkPagination.html",
+                templateUrl:"directives/templates/burkPagination.html",
 	            replace:true,
 	            require:'ngModel',
                 link : function(scope,ele,attrs,c){

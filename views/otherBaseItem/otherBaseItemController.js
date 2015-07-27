@@ -5,7 +5,7 @@ define(['angular','jquery','services/HealthDBService','directives/burkPagination
     	console.log("app.otherBaseItemView config:...")
     	$routeProvider.
                 when("/otherBaseItem",{
-                	templateUrl:"views/otherBaseItem/otherBaseItem.html",
+                	templateUrl:"otherBaseItem/otherBaseItem.html",
                 	controller:"otherBaseItemController"
                 })
     }])

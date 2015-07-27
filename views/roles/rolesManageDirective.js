@@ -8,7 +8,7 @@ define(['angular','jquery','services/HealthDBService'
     				oneRole:"=",
     				onChangeRole:"&"
     			}
-    			,templateUrl:"views/roles/rolesManageDirective.html"
+    			,templateUrl:"roles/rolesManageDirective.html"
     			,link:function(scope){
     				//----角色列表
     	            _HealthDBService_.httpPostForm("listRoles2Json.do",null,function(data){

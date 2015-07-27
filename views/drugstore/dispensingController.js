@@ -3,7 +3,7 @@ define(['controller/controllers','jquery','services/HealthDBService'
     angular.module('app.dispensing',['ngRoute'])
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider.when("/dispensing",{
-        	templateUrl:"views/drugstore/dispensing.html",
+        	templateUrl:"drugstore/dispensing.html",
         	controller:"dispensingController"
         });
     }])

@@ -14,7 +14,7 @@ define(['directives/directives'],function(directives){
                 scope :{
                     patient:"="
                 },
-                templateUrl:"views/directives/templates/registerPatient.html",
+                templateUrl:"directives/templates/registerPatient.html",
 	            replace:true,
                 link : function(scope,ele,attrs,c){
                 	//scope.patient = scope.ngModel;

@@ -11,6 +11,7 @@ define(['angular','jquery', 'mlController'
         ,'roles/rolesAndGroupController'
         ,'drugstore/dispensingController'
         ,'charge/outpchargeController'
+        ,'charge/registerController'
 	],
 	function(angular,$){
     //--------------依赖的模块
@@ -24,6 +25,7 @@ define(['angular','jquery', 'mlController'
                                     ,'app.rolesAndGroup'
                                     ,'app.dispensing'
                                     ,'app.outpcharge'
+                                    ,'app.register'
                                     ]);
     app.config(['$routeProvider',function($routeProvider){
     	$routeProvider.

@@ -4,15 +4,15 @@ define(['angular','jquery',
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider
     	.when("/main",{
-            templateUrl:"views/main/main.html",
+            templateUrl:"main/main.html",
             controller:"mainController"
         })
     	.when("/emrTemplate",{//---病历模板(测试)
-        	templateUrl:"views/main/main.html",
+        	templateUrl:"main/main.html",
         	controller:"mainController"
         })
         .when("/main/:uid",{//----医院维护(测试)
-                    templateUrl:"views/main/main.html",
+                    templateUrl:"main/main.html",
                     controller:"mainController"
          });
     }])

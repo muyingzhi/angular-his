@@ -3,11 +3,11 @@ define(['angular','jquery'],function(angular , $){
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider
     	.when("/login",{
-            templateUrl:"views/login/loginPage.html",
+            templateUrl:"login/loginPage.html",
             controller:"loginController"
         })
         .when("/login/:out",{
-            templateUrl:"views/login/loginPage.html",
+            templateUrl:"login/loginPage.html",
             controller:"loginController"
         });
     }])

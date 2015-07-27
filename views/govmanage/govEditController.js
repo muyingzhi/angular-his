@@ -3,7 +3,7 @@ define(['angular','jquery','services/HealthDBService','directives/radioYesNo'
     angular.module('app.govEdit',['ngRoute'])
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider.when("/govEdit",{
-        	templateUrl:"views/govmanage/govEdit.html",
+        	templateUrl:"govmanage/govEdit.html",
         	controller:"govEditController"
         });
     }])

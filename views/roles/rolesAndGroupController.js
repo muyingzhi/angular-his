@@ -3,7 +3,7 @@ define(['angular','jquery','services/HealthDBService','directives/burkPagination
 	angular.module('app.rolesAndGroup',['ngRoute','app.directive.rolesManage'])
     .config(['$routeProvider' , function($routeProvider){
     	$routeProvider.when("/roleAndGroup",{
-        	templateUrl:"views/roles/rolesAndGroup.html",
+        	templateUrl:"roles/rolesAndGroup.html",
         	controller:"rolesAndGroupController"
         });
     }])
